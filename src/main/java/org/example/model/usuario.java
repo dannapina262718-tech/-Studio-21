@@ -23,6 +23,16 @@ public class usuario {
     @Column(nullable = false)
     private roles rol;
 
+    public usuario() {
+    }
+
+    public usuario(roles rol, String contraseniaHash, String correo, String nombre) {
+        this.rol = rol;
+        this.contraseniaHash = contraseniaHash;
+        this.correo = correo;
+        this.nombre = nombre;
+    }
+
     public Long getId() {
         return id;
     }

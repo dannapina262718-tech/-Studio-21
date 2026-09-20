@@ -7,13 +7,21 @@ import jakarta.persistence.*;
 public class artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
 
     @Column(nullable = false, length = 100)
     private String nombre;
 
     @Column(length = 100)
     private String generoMusical;
+
+    public artista() {
+    }
+
+    public artista(String generoMusical, String nombre) {
+        this.generoMusical = generoMusical;
+        this.nombre = nombre;
+    }
 
     public Long getId() {
         return id;

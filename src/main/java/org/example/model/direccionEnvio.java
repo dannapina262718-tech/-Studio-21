@@ -30,6 +30,20 @@ public class direccionEnvio {
     @Column(nullable = false, length = 10)
     private String codigoPostal;
 
+    public direccionEnvio() {
+    }
+
+    public direccionEnvio(String destinatario, String telefono, String calle, String numeroExterior, String colonia, String ciudad, String estado, String codigoPostal) {
+        this.destinatario = destinatario;
+        this.telefono = telefono;
+        this.calle = calle;
+        this.numeroExterior = numeroExterior;
+        this.colonia = colonia;
+        this.ciudad = ciudad;
+        this.estado = estado;
+        this.codigoPostal = codigoPostal;
+    }
+
     public String getDestinatario() {
         return destinatario;
     }

@@ -28,16 +28,30 @@ public class producto {
     @Column(nullable = false)
     private boolean activo;
 
-    @ManyToOne
-    @JoinColumn(name = "artista")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "artista", nullable = false)
     private artista artista;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "categoria", nullable = false)
     private categoria categoria;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<imagenProducto> imagenes = new ArrayList<>();
+
+    public producto() {
+    }
+
+    public producto(List<imagenProducto> imagenes, categoria categoria, artista artista, boolean activo, int stock, BigDecimal precio, String descripcion, String nombre) {
+        this.imagenes = imagenes;
+        this.categoria = categoria;
+        this.artista = artista;
+        this.activo = activo;
+        this.stock = stock;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.nombre = nombre;
+    }
 
     public Long getId() {
         return id;
@@ -107,8 +121,18 @@ public class producto {
         this.categoria = categoria;
     }
 
-    public void setImagenes(List<imagenProducto> imagenes) {
-        this.imagenes = imagenes;
+    public void setImagenes(List<imagenProducto> nuevasImagenes) {
+        List<imagenProducto> copia = new ArrayList<>(nuevasImagenes);
+
+        for (imagenProducto anterior : this.imagenes) {
+            anterior.setProducto(null);
+        }
+
+        this.imagenes.clear();
+
+        for (imagenProducto imagen : copia) {
+            agregarImagen(imagen);
+        }
     }
 
     public void agregarImagen(imagenProducto imagen) {

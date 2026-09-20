@@ -15,6 +15,14 @@ public class categoria {
     @Column(length = 300)
     private String descripcion;
 
+    public categoria() {
+    }
+
+    public categoria(String descripcion, String nombre) {
+        this.descripcion = descripcion;
+        this.nombre = nombre;
+    }
+
     public Long getId() {
         return id;
     }

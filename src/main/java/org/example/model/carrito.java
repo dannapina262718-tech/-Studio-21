@@ -18,6 +18,14 @@ public class carrito {
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<detalleCarrito> detalles = new ArrayList<>();
 
+    public carrito() {
+    }
+
+    public carrito(List<detalleCarrito> detalles, usuario usuario) {
+        this.detalles = detalles;
+        this.usuario = usuario;
+    }
+
     public Long getId() {
         return id;
     }
@@ -38,8 +46,18 @@ public class carrito {
         this.usuario = usuario;
     }
 
-    public void setDetalles(List<detalleCarrito> detalles) {
-        this.detalles = detalles;
+    public void setDetalles(List<detalleCarrito> nuevosDetalles) {
+        List<detalleCarrito> copia = new ArrayList<>(nuevosDetalles);
+
+        for (detalleCarrito anterior : this.detalles) {
+            anterior.setCarrito(null);
+        }
+
+        this.detalles.clear();
+
+        for (detalleCarrito detalle : copia) {
+            agregarDetalle(detalle);
+        }
     }
 
     public void agregarDetalle(detalleCarrito detalle) {

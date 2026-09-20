@@ -24,6 +24,17 @@ public class detallePedido {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precioUnitarioCompra;
 
+    public detallePedido() {
+    }
+
+    public detallePedido(BigDecimal precioUnitarioCompra, int cantidad, producto producto, pedido pedido) {
+        this.precioUnitarioCompra = precioUnitarioCompra;
+        this.cantidad = cantidad;
+        this.producto = producto;
+        this.pedido = pedido;
+    }
+
+
     public Long getId() {
         return id;
     }

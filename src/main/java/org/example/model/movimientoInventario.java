@@ -27,6 +27,17 @@ public class movimientoInventario {
     @JoinColumn(name = "registrado_por", nullable = false)
     private usuario registradoPor;
 
+    public movimientoInventario() {
+    }
+
+    public movimientoInventario(usuario registradoPor, producto producto, String motivo, int cambioCantidad, LocalDateTime fecha) {
+        this.registradoPor = registradoPor;
+        this.producto = producto;
+        this.motivo = motivo;
+        this.cambioCantidad = cambioCantidad;
+        this.fecha = fecha;
+    }
+
     public Long getId() {
         return id;
     }

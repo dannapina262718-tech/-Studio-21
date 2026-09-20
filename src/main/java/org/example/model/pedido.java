@@ -48,6 +48,22 @@ public class pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<detallePedido> detalles = new ArrayList<>();
 
+    public pedido() {
+    }
+
+    public pedido(List<detallePedido> detalles, usuario usuario, LocalDateTime fechaEntrega, LocalDateTime fechaEnvio, direccionEnvio direccionEnvio, metodoPago metodoPago, estadoPedido estado, BigDecimal total, LocalDateTime fechaCompra, String numeroPedido) {
+        this.detalles = detalles;
+        this.usuario = usuario;
+        this.fechaEntrega = fechaEntrega;
+        this.fechaEnvio = fechaEnvio;
+        this.direccionEnvio = direccionEnvio;
+        this.metodoPago = metodoPago;
+        this.estado = estado;
+        this.total = total;
+        this.fechaCompra = fechaCompra;
+        this.numeroPedido = numeroPedido;
+    }
+
     public Long getId() {
         return id;
     }
@@ -132,8 +148,18 @@ public class pedido {
         this.usuario = usuario;
     }
 
-    public void setDetalles(List<detallePedido> detalles) {
-        this.detalles = detalles;
+    public void setDetalles(List<detallePedido> nuevosDetalles) {
+        List<detallePedido> copia = new ArrayList<>(nuevosDetalles);
+
+        for (detallePedido anterior : this.detalles) {
+            anterior.setPedido(null);
+        }
+
+        this.detalles.clear();
+
+        for (detallePedido detalle : copia) {
+            agregarDetalle(detalle);
+        }
     }
 
     public void agregarDetalle(detallePedido detalle) {

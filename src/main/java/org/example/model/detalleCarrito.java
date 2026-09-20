@@ -13,12 +13,21 @@ public class detalleCarrito {
     @JoinColumn(name = "carrito_id", nullable = false)
     private carrito carrito;
 
-    @ManyToOne
-    @JoinColumn(name = "producto")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "producto", nullable = false)
     private producto producto;
 
     @Column
     private int cantidad;
+
+    public detalleCarrito() {
+    }
+
+    public detalleCarrito(int cantidad, producto producto, carrito carrito) {
+        this.cantidad = cantidad;
+        this.producto = producto;
+        this.carrito = carrito;
+    }
 
     public Long getId() {
         return id;
